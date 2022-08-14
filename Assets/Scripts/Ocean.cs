@@ -36,7 +36,6 @@ public class Ocean
     // Genorate ocean mesh, material need to be applied manually
     public static Ocean InitializeOceanMesh(Ocean ocean)
     {
-        Debug.Log("inistlizing mesh");
         // Make Vars
         List<Vector3> verts = new();
         List<int> tris = new();
