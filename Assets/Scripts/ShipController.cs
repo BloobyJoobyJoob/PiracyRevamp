@@ -11,9 +11,20 @@ public class ShipController : MonoBehaviour
 
     private PlayerInput pi;
     private Rigidbody rb;
+    private InputAction move;
     private void Start()
     {
         pi = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate()
+    {
+        
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        
     }
 }
