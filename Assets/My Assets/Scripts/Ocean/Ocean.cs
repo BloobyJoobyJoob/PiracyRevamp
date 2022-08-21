@@ -132,7 +132,6 @@ public class Ocean
     {
         float2 uv = new(worldPosition.x, worldPosition.z);
         float2 offset = speed * octaveFactor * Shader.GetGlobalFloat("_CustomTime");
-
         float2 tilingAndOffset = ShaderNodes.TilingAndOffsetNode(uv, new(1, 1), offset);
 
         float scale = noiseScale / octaveFactor;

@@ -275,6 +275,9 @@
         },
         {
             "m_Id": "85e3faea73e04429b6dcb52c8de589c2"
+        },
+        {
+            "m_Id": "de09668496a94730a1251fccfd4de854"
         }
     ],
     "m_GroupDatas": [
@@ -1162,6 +1165,20 @@
                     "m_Id": "f4ccd8a72cec46379b694b8c421053ff"
                 },
                 "m_SlotId": 602333290
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "de09668496a94730a1251fccfd4de854"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "f4ccd8a72cec46379b694b8c421053ff"
+                },
+                "m_SlotId": -1356883322
             }
         },
         {
@@ -7090,6 +7107,21 @@
 }
 
 {
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "d1d7eef2c00b4249a029399ed68b6057",
+    "m_Id": 0,
+    "m_DisplayName": "CustomTime",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
     "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
     "m_ObjectId": "d24f960d04a84d6d92de83526aebdc76",
@@ -7408,6 +7440,41 @@
     },
     "m_Labels": [],
     "m_Space": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "de09668496a94730a1251fccfd4de854",
+    "m_Group": {
+        "m_Id": "0b9c86c8716e4e9185a15fb630b5c65b"
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -394.0000305175781,
+            "y": -485.0,
+            "width": 131.00003051757813,
+            "height": 33.999969482421878
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "d1d7eef2c00b4249a029399ed68b6057"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "64b8f7db778d43848910cd2749eeb42c"
+    }
 }
 
 {
@@ -8162,9 +8229,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 344.00006103515627,
-            "y": -1263.0,
-            "width": 143.99996948242188,
+            "x": 345.0,
+            "y": -1296.0,
+            "width": 144.0,
             "height": 34.0
         }
     },
