@@ -96,7 +96,6 @@ public class Ocean
     [Tooltip(" Height is relative to the objects position. You need to add the world hieght of the ocean to this value")]
     public static float GetHeightOfMeshAtPoint(Vector2 worldPoint, Material oceanMaterial)
     {
-
         float height = oceanMaterial.GetFloat("height");
         float speed = oceanMaterial.GetFloat("speed");
         float scale = oceanMaterial.GetFloat("scale");
@@ -125,6 +124,11 @@ public class Ocean
         const float defaultVertHeight = 0;
 
         return (height * combinedNoise) + defaultVertHeight;
+    }
+
+    public static float GetStaticHeight()
+    {
+        return 0;
     }
 
     // This is the equivalent in code, of the noise subgraph function in the ocean shadergraph

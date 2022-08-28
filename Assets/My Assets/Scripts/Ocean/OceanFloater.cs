@@ -26,8 +26,9 @@ public class OceanFloater : GameEntity
     {
         realist = delegate (Vector3 pos)
         {
-            float height = Ocean.GetHeightOfMeshAtPoint(new Vector2(pos.x, pos.z), oceanMaterial) + oceanHeight.position.y + yOffset;
-            Debug.DrawLine(pos, new Vector3(pos.x, height, pos.z));
+            //float height = Ocean.GetHeightOfMeshAtPoint(new Vector2(pos.x, pos.z), oceanMaterial) + oceanHeight.position.y + yOffset;
+            float height = Ocean.GetStaticHeight() + oceanHeight.position.y + yOffset; ;
+            //Debug.DrawLine(pos, new Vector3(pos.x, height, pos.z));
             return height;
         };
 
