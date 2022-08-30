@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using AmazingAssets.CurvedWorld;
 
 public class EndlessTerrain : MonoBehaviour {
 
@@ -96,11 +97,13 @@ public class EndlessTerrain : MonoBehaviour {
 			meshRenderer = meshObject.AddComponent<MeshRenderer>();
 			meshFilter = meshObject.AddComponent<MeshFilter>();
 			meshCollider = meshObject.AddComponent<MeshCollider>();
+
 			meshRenderer.material = material;
 
 			meshObject.transform.position = positionV3 * scale;
 			meshObject.transform.parent = parent;
 			meshObject.transform.localScale = Vector3.one * scale;
+
 			SetVisible(false);
 
 			lodMeshes = new LODMesh[detailLevels.Length];
@@ -119,14 +122,12 @@ public class EndlessTerrain : MonoBehaviour {
 
 			Texture2D texture = TextureGenerator.TextureFromColourMap (mapData.colourMap, MapGenerator.mapChunkSize, MapGenerator.mapChunkSize);
 			meshRenderer.material.mainTexture = texture;
-
-			UpdateTerrainChunk ();
+			UpdateTerrainChunk();
 		}
-
-	
 
 		public void UpdateTerrainChunk() {
 			if (mapDataReceived) {
+
 				float viewerDstFromNearestEdge = Mathf.Sqrt (bounds.SqrDistance (viewerPosition));
 				bool visible = viewerDstFromNearestEdge <= maxViewDst;
 
@@ -146,18 +147,27 @@ public class EndlessTerrain : MonoBehaviour {
 						if (lodMesh.hasMesh) {
 							previousLODIndex = lodIndex;
 							meshFilter.mesh = lodMesh.mesh;
-						} else if (!lodMesh.hasRequestedMesh) {
+
+							if (!meshObject.TryGetComponent(out CurvedWorldBoundingBox bb))
+							{
+								meshFilter.mesh.RecalculateBounds();
+
+								CurvedWorldBoundingBox cwbb = meshObject.AddComponent<CurvedWorldBoundingBox>();
+								cwbb.scale = 3;
+								cwbb.RecalculateBounds();
+							}
+
+						}
+						else if (!lodMesh.hasRequestedMesh) {
 							lodMesh.RequestMesh (mapData);
 						}
 					}
 
 					if (lodIndex == 0) {
 
-						// NEW LINE HERE
-						meshFilter.mesh.bounds = new Bounds(position, Vector2.one * 500);
-
 						if (collisionLODMesh.hasMesh) {
 							meshCollider.sharedMesh = collisionLODMesh.mesh;
+
 						} else if (!collisionLODMesh.hasRequestedMesh) {
 							collisionLODMesh.RequestMesh (mapData);
 						}
