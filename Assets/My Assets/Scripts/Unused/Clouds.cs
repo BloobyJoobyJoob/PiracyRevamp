@@ -25,10 +25,12 @@ public class Clouds : MonoBehaviour
 
     private float cloudDistance;
 
+    public GameObject poolObject;
+    public Transform viewer;
 
     private void LayoutPool()
     {
-        cloudPool = GetComponentsInChildren<Transform>();
+        cloudPool = poolObject.GetComponentsInChildren<Transform>();
 
         for (int x = 1; x < Mathf.Sqrt(cloudPool.Length) - 1; x++)
         {
@@ -51,21 +53,24 @@ public class Clouds : MonoBehaviour
 
     public void GeneratePool()
     {
-        int childCount = transform.childCount;
+        int childCount = poolObject.transform.childCount;
         cloudDistance = skyLength / cloudsPerLength;
 
         for (int i = 0; i < childCount; i++)
         {
-            DestroyImmediate(transform.GetChild(0).gameObject);
+            DestroyImmediate(poolObject.transform.GetChild(0).gameObject);
         }
 
         for (int i = 0; i < cloudsPerLength * cloudsPerLength; i++)
         {
             cloudPrefab.GetComponent<MeshFilter>().mesh = cloudModels[Random.Range(0, cloudModels.Length)];
-            GameObject cloud = Instantiate(cloudPrefab, transform);
+            GameObject cloud = Instantiate(cloudPrefab, poolObject.transform);
 
+            Cloud c = cloud.GetComponent<Cloud>();
+
+            c.bounds = new Bounds(viewer.position, new Vector3(skyLength, cloudHeightMax - cloudHeightMin, skyLength));
+            c.boundsObject = viewer;
         }
-
         LayoutPool();
     }
 }
