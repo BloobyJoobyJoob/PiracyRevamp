@@ -119,6 +119,8 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _Dark_Height: 144.92
+    - _Dark_Scale: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -133,7 +135,7 @@ Material:
     - _Metallic: 0
     - _MirrorOnBack: 0
     - _Noise_Scale: 0.01
-    - _Noise_Strength: 2.5
+    - _Noise_Strength: 2.6
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
@@ -154,6 +156,8 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Dark_Color: {r: 0.18423566, g: 0.17359373, b: 0.59607846, a: 1}
+    - _Dark_Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GroundColor: {r: 0.36899996, g: 0.34899998, b: 0.34099993, a: 1}
     - _SkyTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}

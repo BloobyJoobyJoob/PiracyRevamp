@@ -132,7 +132,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _Poly_Visability: 1
-    - _QueueControl: 0
+    - _QueueControl: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Refract_Strength: 0.03
