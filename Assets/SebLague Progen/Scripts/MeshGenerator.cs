@@ -3,7 +3,7 @@ using System.Collections;
 
 public static class MeshGenerator {
 
-	public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, AnimationCurve _heightCurve, int levelOfDetail, bool useFlatShading) {
+	public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, AnimationCurve _heightCurve, int levelOfDetail, bool useFlatShading, TerrainType[] terrain, float heightOffset) {
 		AnimationCurve heightCurve = new AnimationCurve (_heightCurve.keys);
 
 		int meshSimplificationIncrement = (levelOfDetail == 0)?1:levelOfDetail * 2;
@@ -42,10 +42,12 @@ public static class MeshGenerator {
 			for (int x = 0; x < borderedSize; x += meshSimplificationIncrement) {
 				int vertexIndex = vertexIndicesMap [x, y];
 				Vector2 percent = new Vector2 ((x-meshSimplificationIncrement) / (float)meshSize, (y-meshSimplificationIncrement) / (float)meshSize);
-				float height = heightCurve.Evaluate (heightMap [x, y]) * heightMultiplier;
-				Vector3 vertexPosition = new Vector3 (topLeftX + percent.x * meshSizeUnsimplified, height, topLeftZ - percent.y * meshSizeUnsimplified);
 
-				meshData.AddVertex (vertexPosition, percent, vertexIndex);
+				float height = heightCurve.Evaluate (heightMap [x, y]) * heightMultiplier;
+
+				Vector3 vertexPosition = new Vector3 (topLeftX + percent.x * meshSizeUnsimplified, height + heightOffset, topLeftZ - percent.y * meshSizeUnsimplified);
+
+				meshData.AddVertex(vertexPosition, percent, vertexIndex);
 
 				if (x < borderedSize - 1 && y < borderedSize - 1) {
 					int a = vertexIndicesMap [x, y];
@@ -184,6 +186,7 @@ public class MeshData {
 	void FlatShading() {
 		Vector3[] flatShadedVertices = new Vector3[triangles.Length];
 		Vector2[] flatShadedUvs = new Vector2[triangles.Length];
+		Color[] flatShadedColors = new Color[triangles.Length];
 
 		for (int i = 0; i < triangles.Length; i++) {
 			flatShadedVertices [i] = vertices [triangles [i]];
