@@ -104,7 +104,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Boolean_8f755de89e184da894125981c4c0ba78: 0
-    - Depth_Fade: 70
+    - Depth_Fade: 0.02
     - Smooth: 0.1
     - Speed: 0.14
     - Vector1_309cb8b1b2a4466aa02e543ab0c85a6e: 1
@@ -114,12 +114,14 @@ Material:
     - Vector1_b477c45853f247c4b3ec903cfac6b438: 2.46
     - Vector1_c892da3e47c54e8a865a0935bf75ad0a: 0.1
     - _AlphaClip: 0
+    - _Base_Ocean_Transperancy: 0.9
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _Depth_Falloff: 0.9
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -129,6 +131,7 @@ Material:
     - _GlossyReflections: 0
     - _Metalic: 0
     - _Metallic: 0
+    - _Object_Fade: 0.9
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _Poly_Visability: 1

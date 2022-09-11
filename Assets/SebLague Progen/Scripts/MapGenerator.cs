@@ -48,15 +48,7 @@ public class MapGenerator : MonoBehaviour {
 
 	public static int mapChunkSize {
 		get {
-			if (instance == null) {
-				instance = FindObjectOfType<MapGenerator>();
-			}
-
-			if (instance.useFlatShading) {
-				return 95;
-			} else {
-				return 239;
-			}
+			return 95;
 		}
 	}
 

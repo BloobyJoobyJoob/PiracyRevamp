@@ -85,9 +85,6 @@
             "m_Id": "951f7b7f982e4ace974bf290e9723348"
         },
         {
-            "m_Id": "4ee7a52365da4799b705c4295e11a730"
-        },
-        {
             "m_Id": "297c63b8d2cc4e228254e31fe57bebcc"
         },
         {
@@ -162,20 +159,6 @@
                     "m_Id": "95913252dbd34b1584d69f741e23ceed"
                 },
                 "m_SlotId": 1
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "3714d9501ea94b23bf4f92014524b2b3"
-                },
-                "m_SlotId": 2
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "4ee7a52365da4799b705c4295e11a730"
-                },
-                "m_SlotId": 105252656
             }
         },
         {
@@ -817,7 +800,7 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_Space": 0
+    "m_Space": 2
 }
 
 {
@@ -1179,53 +1162,6 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "SurfaceDescription.BaseColor"
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.SubGraphNode",
-    "m_ObjectId": "4ee7a52365da4799b705c4295e11a730",
-    "m_Group": {
-        "m_Id": ""
-    },
-    "m_Name": "CurvedWorld_LittlePlanet_Y_ID1_Normal",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": -495.0000915527344,
-            "y": -141.00003051757813,
-            "width": 273.00006103515627,
-            "height": 118.00003051757813
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "bfdc27bd3958425094d0c6710bd5d159"
-        },
-        {
-            "m_Id": "cce9b172cafb44aaab8c567ec3c507af"
-        },
-        {
-            "m_Id": "78be3fdc1163455b8006df679deeb217"
-        }
-    ],
-    "synonyms": [],
-    "m_Precision": 0,
-    "m_PreviewExpanded": false,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    },
-    "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"9b376fdbdb71ad3458c78ae9a1d6a5f2\",\n        \"type\": 3\n    }\n}",
-    "m_PropertyGuids": [
-        "79a6938b-3519-4594-be73-94a71cd2e09d"
-    ],
-    "m_PropertyIds": [
-        105252656
-    ],
-    "m_Dropdowns": [],
-    "m_DropdownSelectedEntries": []
 }
 
 {
@@ -1646,7 +1582,7 @@
         "a": 0.0
     },
     "isMainColor": false,
-    "m_ColorMode": 0
+    "m_ColorMode": 1
 }
 
 {
@@ -1676,10 +1612,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -495.0000305175781,
+            "x": -495.0,
             "y": 154.0,
             "width": 105.0,
-            "height": 34.0
+            "height": 34.000030517578128
         }
     },
     "m_Slots": [
@@ -1697,29 +1633,6 @@
     "m_Property": {
         "m_Id": "727ae905af164c7f9a0a4c2fd57c9c5b"
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
-    "m_ObjectId": "78be3fdc1163455b8006df679deeb217",
-    "m_Id": 2,
-    "m_DisplayName": "Normal",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Normal",
-    "m_StageCapability": 3,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_Labels": []
 }
 
 {
@@ -2626,29 +2539,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
-    "m_ObjectId": "bfdc27bd3958425094d0c6710bd5d159",
-    "m_Id": 105252656,
-    "m_DisplayName": "Vertex",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Vector3_77DAC917",
-    "m_StageCapability": 3,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "c10336295dec44ad87e486bcacf351ec",
     "m_Id": 0,
@@ -2814,29 +2704,6 @@
     "m_filter": 0,
     "m_wrap": 2,
     "m_aniso": 0
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
-    "m_ObjectId": "cce9b172cafb44aaab8c567ec3c507af",
-    "m_Id": 1,
-    "m_DisplayName": "Vertex",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Vertex",
-    "m_StageCapability": 3,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_Labels": []
 }
 
 {
