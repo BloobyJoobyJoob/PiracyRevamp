@@ -1,7 +1,16 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.VFX;
+using Unity.Collections;
 using System.Collections.Generic;
 using AmazingAssets.CurvedWorld;
+using Unity.Jobs;
+using Unity.Burst;
+
+[System.Serializable]
+public class TerrainChunkInfo
+{
+	public GameObject[] trees;
+}
 
 public class EndlessTerrain : MonoBehaviour {
 
@@ -24,6 +33,12 @@ public class EndlessTerrain : MonoBehaviour {
 
 	Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 	static List<TerrainChunk> terrainChunksVisibleLastUpdate = new List<TerrainChunk>();
+
+	public TerrainChunkInfo terrainChunkInfo;
+
+	public Vegetation[] vegetationTypes;
+
+	public VisualEffectAsset VisualEffect;
 
 	void Start() {
 		mapGenerator = FindObjectOfType<MapGenerator> ();
@@ -61,7 +76,7 @@ public class EndlessTerrain : MonoBehaviour {
 				if (terrainChunkDictionary.ContainsKey (viewedChunkCoord)) {
 					terrainChunkDictionary [viewedChunkCoord].UpdateTerrainChunk ();
 				} else {
-					terrainChunkDictionary.Add (viewedChunkCoord, new TerrainChunk (viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial));
+					terrainChunkDictionary.Add (viewedChunkCoord, new TerrainChunk (viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, vegetationTypes, VisualEffect));
 				}
 
 			}
@@ -78,6 +93,8 @@ public class EndlessTerrain : MonoBehaviour {
 		MeshFilter meshFilter;
 		MeshCollider meshCollider;
 
+		VisualEffect[] effects;
+
 		LODInfo[] detailLevels;
 		LODMesh[] lodMeshes;
 		LODMesh collisionLODMesh;
@@ -86,7 +103,7 @@ public class EndlessTerrain : MonoBehaviour {
 		bool mapDataReceived;
 		int previousLODIndex = -1;
 
-		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material) {
+		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, Vegetation[] vegetationTypes, VisualEffectAsset visualEffectAsset) {
 			this.detailLevels = detailLevels;
 
 			position = coord * size;
@@ -94,11 +111,28 @@ public class EndlessTerrain : MonoBehaviour {
 			Vector3 positionV3 = new Vector3(position.x,0,position.y);
 
 			meshObject = new GameObject("Terrain Chunk");
+
+			meshObject.isStatic = true;
+
 			meshRenderer = meshObject.AddComponent<MeshRenderer>();
 			meshFilter = meshObject.AddComponent<MeshFilter>();
 			meshCollider = meshObject.AddComponent<MeshCollider>();
 
 			meshRenderer.material = material;
+
+			effects = new VisualEffect[vegetationTypes.Length];
+			
+			for (int i = 0; i < vegetationTypes.Length; i++)
+            {
+				effects[i] = meshObject.AddComponent<VisualEffect>();
+				effects[i].visualEffectAsset = visualEffectAsset;
+
+				//effects[i].initialEventName = "";
+
+				effects[i].SetMesh("Vege Mesh", vegetationTypes[i].mesh);
+				effects[i].SetTexture("Vege Texture", vegetationTypes[i].texture);
+				effects[i].SetInt("Vege Count", vegetationTypes[i].count);
+			}
 
 			meshObject.transform.position = positionV3 * scale;
 			meshObject.transform.parent = parent;
@@ -121,7 +155,6 @@ public class EndlessTerrain : MonoBehaviour {
 			mapDataReceived = true;
 
 			Texture2D texture = TextureGenerator.TextureFromColourMap (mapData.colourMap, MapGenerator.mapChunkSize, MapGenerator.mapChunkSize);
-
 			meshRenderer.material.mainTexture = texture;
 
 			UpdateTerrainChunk();
@@ -159,6 +192,16 @@ public class EndlessTerrain : MonoBehaviour {
 								cwbb.RecalculateBounds();
 							}
 
+							//CreateVegentation();
+
+							foreach (VisualEffect effect in effects)
+							{
+								Debug.Log("setting mesh");
+								effect.SetMesh("Terrain Mesh", lodMesh.mesh);
+								effect.Stop();
+								//effect.Play();
+							}
+
 						}
 						else if (!lodMesh.hasRequestedMesh) {
 							lodMesh.RequestMesh (mapData);
@@ -189,7 +232,45 @@ public class EndlessTerrain : MonoBehaviour {
 		public bool IsVisible() {
 			return meshObject.activeSelf;
 		}
+		void CreateVegentation()
+        {
+			CreateVegentationJob job = new CreateVegentationJob(meshFilter.transform.localScale.x, meshFilter.mesh.triangles, meshFilter.mesh.vertices, meshFilter.transform.position);
+			JobHandle jobHandle = job.Schedule();
+			jobHandle.Complete();
+			return;
+		}
 
+	}
+
+	[BurstCompile]
+	public struct CreateVegentationJob : IJob
+    {
+		public float scaleX;
+		public Vector3 pos;
+		[DeallocateOnJobCompletion]
+		public NativeArray<int> tris;
+		[DeallocateOnJobCompletion]
+		public NativeArray<Vector3> verts;
+
+		public CreateVegentationJob(float scale, int[] triangles, Vector3[] vertices, Vector3 position)
+        {
+			scaleX = scale;
+
+			tris = new NativeArray<int>(triangles, Allocator.TempJob);
+			verts = new NativeArray<Vector3>(vertices, Allocator.TempJob);
+
+			pos = position;
+		}
+
+		public void Execute()
+        {
+			float scale = scaleX;
+
+			for (int i = 0; i < tris.Length; i += 3)
+			{
+				Debug.DrawRay(verts[tris[i]] * scale, Vector3.up, Color.magenta, 60);
+			}
+		}
 	}
 
 	class LODMesh {
@@ -216,7 +297,6 @@ public class EndlessTerrain : MonoBehaviour {
 			hasRequestedMesh = true;
 			mapGenerator.RequestMeshData (mapData, lod, OnMeshDataReceived);
 		}
-
 	}
 
 	[System.Serializable]
@@ -225,5 +305,4 @@ public class EndlessTerrain : MonoBehaviour {
 		public float visibleDstThreshold;
 		public bool useForCollider;
 	}
-
 }
