@@ -7,9 +7,6 @@ public class GameEntity : MonoBehaviour
 {
     protected Rigidbody rb;
 
-    public Vector3 centerOfMassOffset = new Vector3(0F, 0F, 0F);
-    Vector3 S_centerOfMass;
-
     public Vector3 speed { get; private set; }
     public float absSpeed { get; private set; }
     public float sqrtSpeed { get; private set; }
@@ -22,9 +19,7 @@ public class GameEntity : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        S_centerOfMass = rb.centerOfMass;
         last_position = transform.position;
-
         totalMass = GetTotalMass(transform);
     }
 
@@ -40,15 +35,8 @@ public class GameEntity : MonoBehaviour
         
     }
 
-
     protected virtual void FixedUpdate()
     {
-#if UNITY_EDITOR
-
-        if (rb.centerOfMass != S_centerOfMass + centerOfMassOffset)
-            rb.centerOfMass = S_centerOfMass + centerOfMassOffset;
-#endif
-
         speed = (transform.position - last_position) / Time.deltaTime;
         last_position = transform.position;
         absSpeed = speed.x < 0F ? -speed.x : speed.x
@@ -58,14 +46,4 @@ public class GameEntity : MonoBehaviour
             absSpeed = -absSpeed;
         sqrtSpeed = Mathf.Sqrt(absSpeed);
     }
-
-#if UNITY_EDITOR
-    protected virtual void OnDrawGizmos()
-    {
-        if(rb == null)
-            return;
-        Gizmos.color = Color.black;
-        Gizmos.DrawWireSphere(rb.worldCenterOfMass, 0.25F);
-    }
-#endif
 }

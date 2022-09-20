@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
-  m_SubtractiveShadowColor: {r: 0.2569865, g: 0.2723641, b: 0.31132078, a: 1}
+  m_SubtractiveShadowColor: {r: 0, g: 0, b: 0, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 0fd43544597c7a645981f542e76c56af, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -5521,10 +5521,10 @@ MonoBehaviour:
   m_RecenterTarget: 0
   m_VerticalAxis:
     Value: 0
-    m_SpeedMode: 0
-    m_MaxSpeed: 200
-    m_AccelTime: 3
-    m_DecelTime: 0.1
+    m_SpeedMode: 1
+    m_MaxSpeed: 0.2
+    m_AccelTime: 0.5
+    m_DecelTime: 0.5
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
     m_InvertInput: 1
@@ -5545,10 +5545,10 @@ MonoBehaviour:
     m_LegacyVelocityFilterStrength: -1
   m_HorizontalAxis:
     Value: 0
-    m_SpeedMode: 0
-    m_MaxSpeed: 200
-    m_AccelTime: 5
-    m_DecelTime: 0.1
+    m_SpeedMode: 1
+    m_MaxSpeed: 0.2
+    m_AccelTime: 0.5
+    m_DecelTime: 0.5
     m_InputAxisName: Mouse X
     m_InputAxisValue: 0
     m_InvertInput: 0
@@ -9325,7 +9325,7 @@ PrefabInstance:
     - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
         type: 3}
       propertyPath: vegetationTypes.Array.size
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
         type: 3}
@@ -9346,11 +9346,71 @@ PrefabInstance:
         type: 3}
       propertyPath: vegetationTypes.Array.data[0].mesh
       value: 
+      objectReference: {fileID: 4300000, guid: 2569ad1106254fb4e8959c25b2a8217f, type: 3}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[1].mesh
+      value: 
       objectReference: {fileID: 4300000, guid: 709a503c6402d4c449bf92d59d0a0821, type: 3}
     - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
         type: 3}
+      propertyPath: vegetationTypes.Array.data[2].mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 2d05ebfd5a2b657419da71b8b3ec6c78, type: 3}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[3].mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: b9e13cdba2e39fa49aa574c6106e0846, type: 3}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[4].mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 815579cec0d39d9469acfb5820c165f5, type: 3}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[5].mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 10d7aea259557394e8e7d07fef8233a1, type: 3}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[6].mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 10d7aea259557394e8e7d07fef8233a1, type: 3}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
       propertyPath: vegetationTypes.Array.data[0].count
-      value: 1000
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[1].count
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[2].count
+      value: 170
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[3].count
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[4].count
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[5].count
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[6].count
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
         type: 3}
@@ -9407,6 +9467,106 @@ PrefabInstance:
       propertyPath: vegetationTypes.Array.data[0].texture
       value: 
       objectReference: {fileID: 2800000, guid: 6fa6e3a289a54da4387f58e1eb847ef8, type: 3}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[1].texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 6fa6e3a289a54da4387f58e1eb847ef8, type: 3}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[2].texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 6fa6e3a289a54da4387f58e1eb847ef8, type: 3}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[3].texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 6fa6e3a289a54da4387f58e1eb847ef8, type: 3}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[4].texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 6fa6e3a289a54da4387f58e1eb847ef8, type: 3}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[5].texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 6fa6e3a289a54da4387f58e1eb847ef8, type: 3}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[6].texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 6fa6e3a289a54da4387f58e1eb847ef8, type: 3}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[0].maxHeight
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[0].minHeight
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[1].maxHeight
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[1].minHeight
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[2].maxHeight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[2].minHeight
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[3].maxHeight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[3].minHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[4].maxHeight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[4].minHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[5].maxHeight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[5].minHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[6].maxHeight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: vegetationTypes.Array.data[6].minHeight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
         type: 3}
       propertyPath: detailLevels.Array.data[0].useForCollider

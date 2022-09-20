@@ -53,10 +53,8 @@ public class FloatingGameEntityFlat : GameEntity
    
 #if UNITY_EDITOR
     //Some visualizations for this buyoancy script.
-    protected override void OnDrawGizmos()
+    void OnDrawGizmos()
     {
-        base.OnDrawGizmos();
-
         if(!Application.isPlaying)
             return;
 

@@ -7,6 +7,7 @@ using ArchimedsLab;
 
 public class OceanFloater : GameEntity
 {
+    public Vector3 centerOfMassOffset = new Vector3(0F, 0F, 0F);
     public Mesh buoyancyMesh;
     public Material oceanMaterial;
     public Transform oceanHeight;
@@ -38,6 +39,8 @@ public class OceanFloater : GameEntity
         Mesh m = buoyancyMesh == null ? GetComponent<MeshFilter>().mesh : buoyancyMesh;
         //Setting up the cache for the game. Here we use variables with a game-long lifetime.
         WaterCutter.CookCache(m, ref _triangles, ref worldBuffer, ref wetTris, ref dryTris);
+
+        rb.centerOfMass += centerOfMassOffset;
     }
 
     protected override void FixedUpdate()
@@ -62,10 +65,8 @@ public class OceanFloater : GameEntity
 
 #if UNITY_EDITOR
   //Some visualizations for this buyoancy script.
-  protected override void OnDrawGizmos()
+  void OnDrawGizmos()
   {
-    base.OnDrawGizmos();
-
     if (!Application.isPlaying)
       return;
 

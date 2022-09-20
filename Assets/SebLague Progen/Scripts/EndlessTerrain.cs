@@ -33,6 +33,7 @@ public class EndlessTerrain : MonoBehaviour {
 
 	Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 	static List<TerrainChunk> terrainChunksVisibleLastUpdate = new List<TerrainChunk>();
+	static List<TerrainChunk> terrainChunksVisibleThisUpdate = new List<TerrainChunk>();
 
 	public TerrainChunkInfo terrainChunkInfo;
 
@@ -61,11 +62,8 @@ public class EndlessTerrain : MonoBehaviour {
 		
 	void UpdateVisibleChunks() {
 
-		for (int i = 0; i < terrainChunksVisibleLastUpdate.Count; i++) {
-			terrainChunksVisibleLastUpdate [i].SetVisible (false);
-		}
-		terrainChunksVisibleLastUpdate.Clear ();
-			
+		terrainChunksVisibleThisUpdate.Clear();
+
 		int currentChunkCoordX = Mathf.RoundToInt (viewerPosition.x / chunkSize);
 		int currentChunkCoordY = Mathf.RoundToInt (viewerPosition.y / chunkSize);
 
@@ -81,6 +79,14 @@ public class EndlessTerrain : MonoBehaviour {
 
 			}
 		}
+
+        foreach (TerrainChunk chunk in terrainChunksVisibleLastUpdate)
+        {
+			chunk.SetVisible(false);
+        }
+
+		terrainChunksVisibleLastUpdate = new(terrainChunksVisibleThisUpdate);
+
 	}
 
 	public class TerrainChunk {
@@ -103,6 +109,9 @@ public class EndlessTerrain : MonoBehaviour {
 		bool mapDataReceived;
 		int previousLODIndex = -1;
 
+		Vegetation[] GetVegetations;
+		VisualEffectAsset VisualEffectAsset;
+
 		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, Vegetation[] vegetationTypes, VisualEffectAsset visualEffectAsset) {
 			this.detailLevels = detailLevels;
 
@@ -120,23 +129,12 @@ public class EndlessTerrain : MonoBehaviour {
 
 			meshRenderer.material = material;
 
-			effects = new VisualEffect[vegetationTypes.Length];
-			
-			for (int i = 0; i < vegetationTypes.Length; i++)
-            {
-				effects[i] = meshObject.AddComponent<VisualEffect>();
-				effects[i].visualEffectAsset = visualEffectAsset;
-
-				//effects[i].initialEventName = "";
-
-				effects[i].SetMesh("Vege Mesh", vegetationTypes[i].mesh);
-				effects[i].SetTexture("Vege Texture", vegetationTypes[i].texture);
-				effects[i].SetInt("Vege Count", vegetationTypes[i].count);
-			}
-
 			meshObject.transform.position = positionV3 * scale;
 			meshObject.transform.parent = parent;
 			meshObject.transform.localScale = Vector3.one * scale;
+
+			GetVegetations = vegetationTypes;
+			VisualEffectAsset = visualEffectAsset;
 
 			SetVisible(false);
 
@@ -192,16 +190,24 @@ public class EndlessTerrain : MonoBehaviour {
 								cwbb.RecalculateBounds();
 							}
 
-							//CreateVegentation();
+							effects = new VisualEffect[GetVegetations.Length];
 
-							foreach (VisualEffect effect in effects)
+							for (int i = 0; i < GetVegetations.Length; i++)
 							{
-								Debug.Log("setting mesh");
-								effect.SetMesh("Terrain Mesh", lodMesh.mesh);
-								effect.Stop();
-								//effect.Play();
-							}
+								GameObject vfx = Instantiate(new GameObject("Vegetation"), meshObject.transform);
 
+								effects[i] = vfx.AddComponent<VisualEffect>();
+
+								effects[i].visualEffectAsset = VisualEffectAsset;
+
+								effects[i].SetMesh("Terrain Mesh", lodMesh.mesh);
+								effects[i].SetMesh("Vege Mesh", GetVegetations[i].mesh);
+								effects[i].SetTexture("Vege Texture", GetVegetations[i].texture);
+
+								effects[i].SetInt("Vege Count", GetVegetations[i].count);
+								effects[i].SetFloat("Min Height", GetVegetations[i].minHeight);
+								effects[i].SetFloat("Max Height", GetVegetations[i].maxHeight);
+							}
 						}
 						else if (!lodMesh.hasRequestedMesh) {
 							lodMesh.RequestMesh (mapData);
@@ -218,7 +224,8 @@ public class EndlessTerrain : MonoBehaviour {
 						}
 					}
 
-					terrainChunksVisibleLastUpdate.Add(this);
+					terrainChunksVisibleLastUpdate.Remove(this);
+					terrainChunksVisibleThisUpdate.Add(this);
 				}
 
 				SetVisible(visible);
@@ -232,47 +239,7 @@ public class EndlessTerrain : MonoBehaviour {
 		public bool IsVisible() {
 			return meshObject.activeSelf;
 		}
-		void CreateVegentation()
-        {
-			CreateVegentationJob job = new CreateVegentationJob(meshFilter.transform.localScale.x, meshFilter.mesh.triangles, meshFilter.mesh.vertices, meshFilter.transform.position);
-			JobHandle jobHandle = job.Schedule();
-			jobHandle.Complete();
-			return;
-		}
-
 	}
-
-	[BurstCompile]
-	public struct CreateVegentationJob : IJob
-    {
-		public float scaleX;
-		public Vector3 pos;
-		[DeallocateOnJobCompletion]
-		public NativeArray<int> tris;
-		[DeallocateOnJobCompletion]
-		public NativeArray<Vector3> verts;
-
-		public CreateVegentationJob(float scale, int[] triangles, Vector3[] vertices, Vector3 position)
-        {
-			scaleX = scale;
-
-			tris = new NativeArray<int>(triangles, Allocator.TempJob);
-			verts = new NativeArray<Vector3>(vertices, Allocator.TempJob);
-
-			pos = position;
-		}
-
-		public void Execute()
-        {
-			float scale = scaleX;
-
-			for (int i = 0; i < tris.Length; i += 3)
-			{
-				Debug.DrawRay(verts[tris[i]] * scale, Vector3.up, Color.magenta, 60);
-			}
-		}
-	}
-
 	class LODMesh {
 
 		public Mesh mesh;
