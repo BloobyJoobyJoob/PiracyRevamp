@@ -10,8 +10,9 @@ public class OceanFloater : GameEntity
     public Vector3 centerOfMassOffset = new Vector3(0F, 0F, 0F);
     public Mesh buoyancyMesh;
     public Material oceanMaterial;
-    public Transform oceanHeight;
+    public float oceanHeight = 0;
     public float yOffset;
+
 
     /* These 4 arrays are cache array, preventing some operations to be done each frame. */
     tri[] _triangles;
@@ -28,7 +29,7 @@ public class OceanFloater : GameEntity
         realist = delegate (Vector3 pos)
         {
             //float height = Ocean.GetHeightOfMeshAtPoint(new Vector2(pos.x, pos.z), oceanMaterial) + oceanHeight.position.y + yOffset;
-            float height = Ocean.GetStaticHeight() + oceanHeight.position.y + yOffset; ;
+            float height = Ocean.GetStaticHeight() + oceanHeight + yOffset; ;
             //Debug.DrawLine(pos, new Vector3(pos.x, height, pos.z));
             return height;
         };

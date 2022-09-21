@@ -11,9 +11,12 @@ public class FollowPosition : MonoBehaviour
 
     private void Update()
     {
-        transform.position = new Vector3(transform.position.x - offset.x, transform.position.y, transform.position.z - offset.y);
-        Vector2 posRounded = new Vector2(Mathf.Round(target.position.x / followFactor), Mathf.Round(target.position.z / followFactor));
-        Vector2 pos = posRounded * followFactor;
-        transform.position = new Vector3(pos.x + offset.x, transform.position.y, pos.y + offset.y);
+        if (target != null)
+        {
+            transform.position = new Vector3(transform.position.x - offset.x, transform.position.y, transform.position.z - offset.y);
+            Vector2 posRounded = new Vector2(Mathf.Round(target.position.x / followFactor), Mathf.Round(target.position.z / followFactor));
+            Vector2 pos = posRounded * followFactor;
+            transform.position = new Vector3(pos.x + offset.x, transform.position.y, pos.y + offset.y);
+        }
     }
 }

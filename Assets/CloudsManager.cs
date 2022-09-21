@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class OceanMaster : MonoBehaviour
+
+public class CloudsManager : MonoBehaviour
 {
-    public static OceanMaster Singleton;
+    public static CloudsManager Singleton;
 
     [HideInInspector]
     public FollowPosition followPosition;
+
+    public float oceanHeight = 0;
 
     private void Awake()
     {
@@ -14,7 +17,7 @@ public class OceanMaster : MonoBehaviour
 
         if (Singleton != null)
         {
-            Debug.LogError("More than one oceanMaster");
+            Debug.LogError("More than one CloudsManager");
         }
         else
         {

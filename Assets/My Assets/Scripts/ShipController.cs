@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using AmazingAssets.CurvedWorld;
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Rigidbody))]
-public class ShipController : MonoBehaviour
+public class ShipController : NetworkBehaviour
 {
     private Rigidbody rb;
 
@@ -25,6 +27,21 @@ public class ShipController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         em = ps.emission;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (IsOwner)
+        {
+            OceanMaster.Singleton.followPosition.target = transform;
+            EndlessTerrain.Singleton.viewer = transform;
+            CloudsManager.Singleton.followPosition.target = transform;
+            FindObjectOfType<CurvedWorldController>().bendPivotPoint = transform;
+        }
+        else
+        {
+            Destroy(this);
+        }
     }
 
     private void FixedUpdate()

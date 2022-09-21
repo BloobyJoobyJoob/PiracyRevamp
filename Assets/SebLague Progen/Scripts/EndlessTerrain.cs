@@ -3,8 +3,7 @@ using UnityEngine.VFX;
 using Unity.Collections;
 using System.Collections.Generic;
 using AmazingAssets.CurvedWorld;
-using Unity.Jobs;
-using Unity.Burst;
+using Unity.Netcode;
 
 [System.Serializable]
 public class TerrainChunkInfo
@@ -41,7 +40,21 @@ public class EndlessTerrain : MonoBehaviour {
 
 	public VisualEffectAsset VisualEffect;
 
-	void Start() {
+	public static EndlessTerrain Singleton;
+
+	private void Awake()
+    {
+		if (Singleton != null)
+		{
+			Debug.LogError("More than one EndlessTerrain");
+		}
+		else
+		{
+			Singleton = this;
+		}
+	}
+
+    void Start() {
 		mapGenerator = FindObjectOfType<MapGenerator> ();
 
 		maxViewDst = detailLevels [detailLevels.Length - 1].visibleDstThreshold;
@@ -52,11 +65,20 @@ public class EndlessTerrain : MonoBehaviour {
 	}
 
 	void Update() {
-		viewerPosition = new Vector2 (viewer.position.x, viewer.position.z) / scale;
 
-		if ((viewerPositionOld - viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate) {
+        if (viewer == null)
+        {
+			viewerPosition = new Vector2(0, 0);
+		}
+        else
+        {
+			viewerPosition = new Vector2(viewer.position.x, viewer.position.z) / scale;
+		}
+
+		if ((viewerPositionOld - viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate)
+		{
 			viewerPositionOld = viewerPosition;
-			UpdateVisibleChunks ();
+			UpdateVisibleChunks();
 		}
 	}
 		
@@ -64,29 +86,33 @@ public class EndlessTerrain : MonoBehaviour {
 
 		terrainChunksVisibleThisUpdate.Clear();
 
-		int currentChunkCoordX = Mathf.RoundToInt (viewerPosition.x / chunkSize);
-		int currentChunkCoordY = Mathf.RoundToInt (viewerPosition.y / chunkSize);
+		int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x / chunkSize);
+		int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / chunkSize);
 
-		for (int yOffset = -chunksVisibleInViewDst; yOffset <= chunksVisibleInViewDst; yOffset++) {
-			for (int xOffset = -chunksVisibleInViewDst; xOffset <= chunksVisibleInViewDst; xOffset++) {
-				Vector2 viewedChunkCoord = new Vector2 (currentChunkCoordX + xOffset, currentChunkCoordY + yOffset);
+		for (int yOffset = -chunksVisibleInViewDst; yOffset <= chunksVisibleInViewDst; yOffset++)
+		{
+			for (int xOffset = -chunksVisibleInViewDst; xOffset <= chunksVisibleInViewDst; xOffset++)
+			{
+				Vector2 viewedChunkCoord = new Vector2(currentChunkCoordX + xOffset, currentChunkCoordY + yOffset);
 
-				if (terrainChunkDictionary.ContainsKey (viewedChunkCoord)) {
-					terrainChunkDictionary [viewedChunkCoord].UpdateTerrainChunk ();
-				} else {
-					terrainChunkDictionary.Add (viewedChunkCoord, new TerrainChunk (viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, vegetationTypes, VisualEffect));
+				if (terrainChunkDictionary.ContainsKey(viewedChunkCoord))
+				{
+					terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk();
+				}
+				else
+				{
+					terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, vegetationTypes, VisualEffect));
 				}
 
 			}
 		}
 
-        foreach (TerrainChunk chunk in terrainChunksVisibleLastUpdate)
-        {
+		foreach (TerrainChunk chunk in terrainChunksVisibleLastUpdate)
+		{
 			chunk.SetVisible(false);
-        }
+		}
 
 		terrainChunksVisibleLastUpdate = new(terrainChunksVisibleThisUpdate);
-
 	}
 
 	public class TerrainChunk {
