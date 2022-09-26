@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using AmazingAssets.CurvedWorld;
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Rigidbody))]
@@ -13,6 +10,7 @@ public class ShipController : NetworkBehaviour
 
     public float moveForce;
     public float rotateForce;
+    public float maxRotateForce;
 
     public ParticleSystem ps;
     public float spawnMultiplier;
@@ -31,23 +29,16 @@ public class ShipController : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsOwner)
+        if (!IsOwner)
         {
-            OceanMaster.Singleton.followPosition.target = transform;
-            EndlessTerrain.Singleton.viewer = transform;
-            CloudsManager.Singleton.followPosition.target = transform;
-            FindObjectOfType<CurvedWorldController>().bendPivotPoint = transform;
-        }
-        else
-        {
-            Destroy(this);
+            enabled = false;
         }
     }
 
     private void FixedUpdate()
     {
-        rb.AddForce(Mathf.Abs(movement.y) * moveForce * transform.forward, ForceMode.Acceleration);
-        rb.AddTorque(movement.x * rotateForce * new Vector2(rb.velocity.x, rb.velocity.z).sqrMagnitude * -transform.up, ForceMode.Acceleration);
+        rb.AddForce(Mathf.Clamp(movement.y, 0, 1) * moveForce * transform.forward, ForceMode.Acceleration);
+        rb.AddTorque(Mathf.Clamp(movement.x * rotateForce * new Vector2(rb.velocity.x, rb.velocity.z).sqrMagnitude, -maxRotateForce, maxRotateForce) * -Vector3.up, ForceMode.Acceleration);
     }
 
     private void Update()
