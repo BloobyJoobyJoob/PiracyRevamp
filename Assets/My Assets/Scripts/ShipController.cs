@@ -18,9 +18,14 @@ public class ShipController : NetworkBehaviour
 
     private Vector2 movement = Vector2.zero;
 
+    private bool fire = false;
+
     private ParticleSystem.EmissionModule em;
+    private Cannons Cannons;
     private void Start()
     {
+        Cannons = GetComponent<Cannons>();
+
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -44,10 +49,19 @@ public class ShipController : NetworkBehaviour
     private void Update()
     {
         em.rateOverTime = spawnMin + (rb.velocity.sqrMagnitude * spawnMultiplier);
+
+        if (fire)
+        {
+            Cannons.TryFireCannons();
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         movement = context.ReadValue<Vector2>();
+    }
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        fire = context.action.IsPressed();
     }
 }

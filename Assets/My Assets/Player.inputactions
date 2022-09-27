@@ -15,10 +15,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Zoom",
+                    "name": "Fire",
                     "type": "PassThrough",
-                    "id": "12b76438-5fa1-4f1d-8dd2-7f026d8f4f0a",
-                    "expectedControlType": "Vector2",
+                    "id": "aac8e517-6ff2-4802-9966-f922f5ab449a",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -82,12 +82,23 @@
                 },
                 {
                     "name": "",
-                    "id": "1d1f9a90-86cb-4796-b8bd-b149c6832975",
-                    "path": "<Mouse>/scroll",
+                    "id": "acb89fda-58b3-42df-a57f-b3c8917518f5",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Zoom",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "71e0a5d7-b417-4728-855b-283bbe9828d6",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

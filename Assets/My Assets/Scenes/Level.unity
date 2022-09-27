@@ -5861,32 +5861,32 @@ PrefabInstance:
     - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
         type: 3}
       propertyPath: vegetationTypes.Array.data[0].count
-      value: 120
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
         type: 3}
       propertyPath: vegetationTypes.Array.data[1].count
-      value: 120
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
         type: 3}
       propertyPath: vegetationTypes.Array.data[2].count
-      value: 170
+      value: 210
       objectReference: {fileID: 0}
     - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
         type: 3}
       propertyPath: vegetationTypes.Array.data[3].count
-      value: 80
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
         type: 3}
       propertyPath: vegetationTypes.Array.data[4].count
-      value: 80
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
         type: 3}
       propertyPath: vegetationTypes.Array.data[5].count
-      value: 80
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
         type: 3}
