@@ -5772,6 +5772,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 618766303}
+    - target: {fileID: 2173974206615009481, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 87ab55899759eff4d934106daaeeb76a, type: 2}
     - target: {fileID: 2173974206615009483, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5792,6 +5797,11 @@ PrefabInstance:
       propertyPath: viewer
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
+        type: 3}
+      propertyPath: mapMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 87ab55899759eff4d934106daaeeb76a, type: 2}
     - target: {fileID: 2173974207201152929, guid: 6ed8abc4d7841d143bfa8c27f0c0ae0b,
         type: 3}
       propertyPath: VisualEffect
