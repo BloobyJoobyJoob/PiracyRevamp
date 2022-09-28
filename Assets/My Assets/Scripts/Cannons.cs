@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Unity.Netcode;
 
 [System.Serializable]
 public class Cannon
@@ -11,31 +12,43 @@ public class Cannon
     public float postDelay = 1;
 }
 
-public class Cannons : MonoBehaviour
+public class Cannons : NetworkBehaviour
 {
     public Cannon[] cannons;
 
     public float recoilDistance = 2;
     public float recoilTime = 0.2f;
     public float cannonAlignTime = 1;
-
+    public GameObject cannonBall;
     public float fireDelay;
+    public float fireForce;
 
-    bool shooting;
-
-    public bool TryFireCannons()
+    bool shooting = true;
+    public override void OnNetworkSpawn()
     {
+        Invoke("EnableCannons", 1);
+    }
+
+    void EnableCannons()
+    {
+        shooting = false;
+    }
+
+    public void TryFireCannons()
+    {
+        if (IsOwner)
+        {
+            FireCannonsServerRPC();
+        }
+
         if (shooting)
         {
-            return false;
+            return;
         }
         else
         {
             shooting = true;
-
             StartCoroutine(BeginShooting(Time.time));
-
-            return true;
         }
     }
 
@@ -52,11 +65,29 @@ public class Cannons : MonoBehaviour
                 t.DOLocalMoveX(t.localPosition.x - (t.localRotation.eulerAngles.y == 270 ? 1 : -1 * recoilDistance), cannonAlignTime).SetEase(Ease.InSine);
             });
 
+            GameObject cb = Instantiate(cannonBall, t.position, t.rotation);
+            cb.GetComponent<Rigidbody>().AddForce(fireForce * t.forward);
+
             yield return new WaitForSeconds(cannon.postDelay);
         }
 
         yield return new WaitForSeconds(fireDelay - (Time.time - timeStarted));
 
         shooting = false;
+    }
+
+    [ServerRpc]
+    private void FireCannonsServerRPC()
+    {
+        FireCannonsClientRPC();
+    }
+
+    [ClientRpc]
+    private void FireCannonsClientRPC()
+    {
+        if (!IsOwner)
+        {
+            TryFireCannons();
+        }
     }
 }

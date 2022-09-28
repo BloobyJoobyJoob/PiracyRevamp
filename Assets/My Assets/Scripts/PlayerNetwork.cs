@@ -40,8 +40,8 @@ public class PlayerNetwork : NetworkBehaviour
             {
                 TransmitPlayerNetworkDataServerRPC(new PlayerNetworkData()
                 {
-                    Position = transform.position,
-                    Rotation = transform.rotation.eulerAngles
+                    Position = rb.position,
+                    Rotation = rb.rotation.eulerAngles
                 });
             }
         }
@@ -66,16 +66,16 @@ public class PlayerNetwork : NetworkBehaviour
 
     struct PlayerNetworkData : INetworkSerializable
     {
-        private short netPositionX, netPositionY, netPositionZ;
-        private short netRotationX, netRotationY, netRotationZ;
+        private float netPositionX, netPositionY, netPositionZ;
+        private float netRotationX, netRotationY, netRotationZ;
 
         public Vector3 Position
         {
             get => new Vector3(netPositionX, netPositionY, netPositionZ);
             set {
-                netPositionX = (short)value.x;
-                netPositionY = (short)value.y;
-                netPositionZ = (short)value.z;
+                netPositionX = value.x;
+                netPositionY = value.y;
+                netPositionZ = value.z;
             }
         }
 
@@ -83,9 +83,9 @@ public class PlayerNetwork : NetworkBehaviour
         {
             get => new Vector3(netRotationX, netRotationY, netRotationZ);
             set {
-                netRotationX = (short)value.x;
-                netRotationY = (short)value.y;
-                netRotationZ = (short)value.z;
+                netRotationX = value.x;
+                netRotationY = value.y;
+                netRotationZ = value.z;
             }
         }
 
