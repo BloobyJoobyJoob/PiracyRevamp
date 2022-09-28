@@ -228,6 +228,8 @@ public class EndlessTerrain : MonoBehaviour {
 
 								effects[i].visualEffectAsset = VisualEffectAsset;
 
+								effects[i].resetSeedOnPlay = false;
+
 								effects[i].SetMesh("Terrain Mesh", lodMesh.mesh);
 								effects[i].SetMesh("Vege Mesh", GetVegetations[i].mesh);
 								effects[i].SetTexture("Vege Texture", GetVegetations[i].texture);
