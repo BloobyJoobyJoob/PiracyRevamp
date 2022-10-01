@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Cinemachine;
 using Unity.Netcode;
 
 [System.Serializable]
@@ -15,6 +16,7 @@ public class Cannon
 public class Cannons : NetworkBehaviour
 {
     public Cannon[] cannons;
+    public CinemachineImpulseSource CinemachineImpulseSource;
 
     public float recoilDistance = 2;
     public float recoilTime = 0.2f;
@@ -24,9 +26,14 @@ public class Cannons : NetworkBehaviour
     public float fireForce;
 
     bool shooting = true;
+    public float impulseStrength;
+
+    public Transform cam;
     public override void OnNetworkSpawn()
     {
         Invoke("EnableCannons", 1);
+        cam = GameObject.FindGameObjectWithTag("Main Virtual Cam").transform;
+
     }
 
     void EnableCannons()
@@ -56,6 +63,9 @@ public class Cannons : NetworkBehaviour
     {
         foreach (Cannon cannon in cannons)
         {
+
+            CinemachineImpulseSource.GenerateImpulse(impulseStrength * (cam.position - transform.position).normalized);
+
             cannon.ps.Play();
 
             Transform t = cannon.transform;

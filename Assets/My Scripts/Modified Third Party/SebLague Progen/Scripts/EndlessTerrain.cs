@@ -13,7 +13,7 @@ public class TerrainChunkInfo
 
 public class EndlessTerrain : MonoBehaviour {
 
-	const float scale = 2.5f;
+	const float scale = 2.5f; 
 
 	const float viewerMoveThresholdForChunkUpdate = 25f;
 	const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
