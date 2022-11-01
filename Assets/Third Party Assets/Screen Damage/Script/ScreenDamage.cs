@@ -36,6 +36,8 @@ public class ScreenDamage : MonoBehaviour
     bool triggerBlur = false;
     bool hideBlur = false;
 
+    public DestroyShip destroy;
+
     public float CurrentHealth {                                        //property for setting/getting health
         get { return _health; }
 
@@ -71,6 +73,11 @@ public class ScreenDamage : MonoBehaviour
 
                 animator.SetFloat("Speed", 0);
                 animator.SetBool("Die", true);
+
+                destroy.transform.SetParent(null);
+
+                destroy.GetComponent<DestroyShip>().Detonate(1);
+
                 //bloodyFrame.color
                 //bloodyFrame.color = temp;
 

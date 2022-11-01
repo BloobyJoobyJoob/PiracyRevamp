@@ -7,6 +7,7 @@ TagManager:
   - Curved World Manager
   - Main Virtual Cam
   - NetworkManager
+  - skip
   layers:
   - Default
   - TransparentFX

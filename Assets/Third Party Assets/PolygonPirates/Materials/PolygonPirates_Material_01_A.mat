@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PolygonPirates_Material_01_A
-  m_Shader: {fileID: 4800000, guid: 37639dc9dfcb02e418de063aa605d992, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8d1e11e2ed137c34199ef6dcb8d6a88d, type: 3}
   m_ValidKeywords:
   - CURVEDWORLD_BEND_TYPE_LITTLEPLANET_Y
   - _EMISSION
@@ -172,6 +172,7 @@ Material:
     - _GI_Intensity: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.1
+    - _GlossinessSource: 0
     - _GlossyReflections: 1
     - _HighColor_Power: 0
     - _Inverse_MatcapMask: 0
@@ -228,8 +229,11 @@ Material:
     - _Scroll_EmissiveV: 0
     - _Set_SystemShadowsToBase: 1
     - _ShadeColor_Step: 0
+    - _Shininess: 0
     - _Smoothness: 0.1
+    - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
+    - _SpecSource: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
