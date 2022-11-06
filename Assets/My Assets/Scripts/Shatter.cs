@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Shatter : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class Shatter : MonoBehaviour
 
     [SerializeField]
     private Fragment[] fragments;
+
+    public float diesdTime = 4f;
+    public float diesdDelay = 4f;
 
     public void ExplodeFrags(float force, float upwardsMultiplier)
     {
@@ -28,6 +32,8 @@ public class Shatter : MonoBehaviour
 
             f.rb.AddForce(new Vector3(force * f.direction.x, force * f.direction.y * upwardsMultiplier, force * f.direction.z), ForceMode.Impulse);
         }
+
+        Invoke("Diesd", diesdDelay);
     }
 
     public Fragment[] GetFrags()
@@ -130,6 +136,14 @@ public class Shatter : MonoBehaviour
             colliders[i].convex = true;
         }
         return colliders;
+    }
+
+    private void Diesd()
+    {
+        foreach (Transform child in transform.GetComponentInChildren<Transform>())
+        {
+            child.DOScale(0, diesdTime).SetEase(Ease.InSine).OnComplete(() => Destroy(child.gameObject));
+        }
     }
 }
 

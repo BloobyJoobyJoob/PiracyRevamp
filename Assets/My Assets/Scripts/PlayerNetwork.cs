@@ -21,8 +21,11 @@ public class PlayerNetwork : NetworkBehaviour
 
     private Vector3 discardVel;
     private Vector3 discardRotVel;
+    public GameObject detonationObj;
     public override void OnNetworkSpawn()
     {
+        usernameNetworkVar.OnValueChanged += OnUsernameChange;
+
         if (IsOwner)
         {
             OceanMaster.Singleton.followPosition.target = transform;
@@ -34,13 +37,22 @@ public class PlayerNetwork : NetworkBehaviour
             SendUsernameServerRPC(new(GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkHelper>().username.text));
         }
         Instantiate(flags[(int)Mathf.Clamp(OwnerClientId, 0, flags.Length)], flagParent);
-
-        usernameNetworkVar.OnValueChanged += OnUsernameChange;
     }
-
     public override void OnNetworkDespawn()
     {
         usernameNetworkVar.OnValueChanged -= OnUsernameChange;
+
+        if (!IsOwner)
+        {
+            detonationObj.transform.SetParent(null);
+            detonationObj.GetComponent<DestroyShip>().Detonate(0);
+        }
+    }
+
+    [ServerRpc]
+    public void DestroyShipServerRPC()
+    {
+        NetworkObject.Despawn(true);
     }
 
     private void OnUsernameChange(FixedString32Bytes prevVal, FixedString32Bytes newVal)

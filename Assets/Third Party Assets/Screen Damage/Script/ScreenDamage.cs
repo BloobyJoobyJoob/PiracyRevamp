@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Cinemachine;
+using Unity.Netcode;
 
 public class ScreenDamage : MonoBehaviour
 {
@@ -37,6 +39,18 @@ public class ScreenDamage : MonoBehaviour
     bool hideBlur = false;
 
     public DestroyShip destroy;
+    CinemachineFramingTransposer cam;
+    CinemachinePOV pov;
+    public float dieDistance = 150;
+
+    private bool hasDDieds = false;
+
+    private void Awake()
+    {
+        CinemachineVirtualCamera v = GameObject.FindGameObjectWithTag("Main Virtual Cam").GetComponent<CinemachineVirtualCamera>();
+        cam = v.GetCinemachineComponent<CinemachineFramingTransposer>();
+        pov = v.GetCinemachineComponent<CinemachinePOV>();
+    }
 
     public float CurrentHealth {                                        //property for setting/getting health
         get { return _health; }
@@ -74,12 +88,22 @@ public class ScreenDamage : MonoBehaviour
                 animator.SetFloat("Speed", 0);
                 animator.SetBool("Die", true);
 
-                destroy.transform.SetParent(null);
+                if (!hasDDieds)
+                {
+                    Transform p = destroy.transform.parent;
 
-                destroy.GetComponent<DestroyShip>().Detonate(1);
+                    destroy.transform.SetParent(null);
+                    destroy.GetComponent<DestroyShip>().Detonate(0);
 
-                //bloodyFrame.color
-                //bloodyFrame.color = temp;
+                    cam.m_CameraDistance = dieDistance;
+                    pov.m_VerticalAxis.m_MaxSpeed = 0;
+                    pov.m_HorizontalAxis.m_MaxSpeed = 0;
+
+                    p.GetComponent<PlayerNetwork>().DestroyShipServerRPC();
+
+                    hasDDieds = true;
+
+                }
 
                 return;
             }
@@ -137,7 +161,6 @@ public class ScreenDamage : MonoBehaviour
             }
         }
     }
-
     void Start() 
     {
         animator = bloodyFrame.transform.GetComponent<Animator>();

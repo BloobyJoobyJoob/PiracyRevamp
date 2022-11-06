@@ -45,8 +45,10 @@ public class ShipController : NetworkBehaviour
         cam = GameObject.FindGameObjectWithTag("Main Virtual Cam").transform;
 
         indicator = Camera.main.GetComponent<ScreenDamage>();
-
-        indicator.destroy = transform.Find("Shattered Ship").GetComponent<DestroyShip>();
+        if (IsOwner)
+        {
+            indicator.destroy = transform.Find("Shattered Ship").GetComponent<DestroyShip>();
+        }
     }
 
     private void FixedUpdate()

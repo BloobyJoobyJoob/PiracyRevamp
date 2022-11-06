@@ -3691,7 +3691,7 @@ Transform:
   m_GameObject: {fileID: 1452734411236318480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1210772256076498325}
@@ -4675,7 +4675,7 @@ Transform:
   m_GameObject: {fileID: 1983367652628160303}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 490376011529623434}
@@ -4901,7 +4901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explodePosition: {fileID: 1677379268944007270}
   explosionForce: 2.5
-  upwardsMultiplier: 2
+  upwardsMultiplier: 4
   fragments:
   - direction: {x: 0.019821443, y: 0.02924672, z: 0.9993757}
     rb: {fileID: 5886209309787066939}
@@ -5315,6 +5315,8 @@ MonoBehaviour:
     rb: {fileID: 8868727112231757069}
   - direction: {x: 0.000000008833626, y: 0.950509, z: -0.310697}
     rb: {fileID: 2405834495629550446}
+  diesdTime: 8
+  diesdDelay: 5
 --- !u!1 &1993886588082257813
 GameObject:
   m_ObjectHideFlags: 0
@@ -9983,6 +9985,7 @@ MonoBehaviour:
   flagParent: {fileID: 1615851291481219116}
   usernameTag: {fileID: 5281049723768159895}
   interpolationTime: 0.1
+  detonationObj: {fileID: 1452734411236318480}
 --- !u!114 &5572176234290297597
 MonoBehaviour:
   m_ObjectHideFlags: 0
