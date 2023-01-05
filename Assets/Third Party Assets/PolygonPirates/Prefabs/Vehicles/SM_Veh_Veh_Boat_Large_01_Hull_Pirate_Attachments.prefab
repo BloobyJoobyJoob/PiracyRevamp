@@ -3102,7 +3102,6 @@ GameObject:
   - component: {fileID: 2389650}
   - component: {fileID: 738576406}
   - component: {fileID: 738576407}
-  - component: {fileID: 738576403}
   - component: {fileID: 738576404}
   - component: {fileID: 738576405}
   m_Layer: 0
@@ -3214,20 +3213,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3230132273738596951, guid: 3be6f10395ce5db4b89629303fa23c42, type: 3}
---- !u!114 &738576403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 175688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bea869298a0ae0c41804f5a86d51fe83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveForce: 6
-  rotateForce: 0.02
 --- !u!114 &738576404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3256,7 +3241,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 738576403}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShipController, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -3295,7 +3280,7 @@ MonoBehaviour:
   buoyancyMesh: {fileID: 3230132273738596951, guid: 3be6f10395ce5db4b89629303fa23c42,
     type: 3}
   oceanMaterial: {fileID: 2100000, guid: 944b89fb64bf0d04fa836e816492118a, type: 2}
-  oceanHeight: {fileID: 0}
+  oceanHeight: 0
   yOffset: -1
 --- !u!1 &179762
 GameObject:
